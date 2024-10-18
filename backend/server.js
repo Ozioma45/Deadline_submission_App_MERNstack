@@ -15,13 +15,7 @@ app.use(express.json());
 console.log("Mongo URI:", process.env.MONGO_URI);
 
 mongoose
-  .connect(
-    "mongodb+srv://oziomaegole:Oziblink2846@submissionproject.fbcfi.mongodb.net/",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error(err));
 
