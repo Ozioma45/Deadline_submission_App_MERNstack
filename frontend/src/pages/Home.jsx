@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Countdown from "../components/Countdown";
 
 const Home = () => {
-  const submissionDeadline = "2024-12-31T23:59:59"; // Set your deadline
+  const submissionDeadline = "2024-10-25T23:59:59"; // Set your deadline
 
   return (
     <div className="text-center my-5">

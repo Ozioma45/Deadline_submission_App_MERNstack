@@ -27,11 +27,14 @@ const Countdown = ({ deadline }) => {
   });
 
   return (
-    <div>
+    <div className="mt-3">
       {Object.keys(timeLeft).length ? (
-        <div>
-          {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m{" "}
-          {timeLeft.seconds}s
+        <div className="text-center">
+          <h5>Time left until submission closes:</h5>
+          <h3 className="display-6">
+            {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m{" "}
+            {timeLeft.seconds}s
+          </h3>
         </div>
       ) : (
         <span>Submission Closed</span>
