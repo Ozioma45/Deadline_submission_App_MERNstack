@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import ProjectForm from "./components/ProjectForm";
 import ProjectList from "./components/ProjectList";
@@ -8,11 +8,11 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/submit" component={ProjectForm} />
-          <Route path="/projects" component={ProjectList} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/submit" element={<ProjectForm />} />
+          <Route path="/projects" element={<ProjectList />} />
+        </Routes>
       </div>
     </Router>
   );
