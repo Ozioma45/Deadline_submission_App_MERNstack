@@ -27,7 +27,7 @@ const ProjectList = () => {
 
   return (
     <div className="container my-5">
-      <h2 className="text-center">Submitted Projects</h2>
+      <h2 className="text-center text-white">Submitted Projects</h2>
       <table className="table table-striped table-bordered mt-4">
         <thead className="thead-dark">
           <tr>

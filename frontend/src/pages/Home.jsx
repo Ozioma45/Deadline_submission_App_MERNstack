@@ -6,7 +6,7 @@ const Home = () => {
   const submissionDeadline = "2024-10-25T23:59:59"; // Set your deadline
 
   return (
-    <div className="text-center my-5">
+    <div className="text-center my-5 text-white">
       <h1 className="display-4">Project Submission Portal</h1>
       <div className="mt-4">
         <Countdown deadline={submissionDeadline} />
