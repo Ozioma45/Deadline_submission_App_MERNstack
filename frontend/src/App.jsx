@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import ProjectForm from "./components/ProjectForm";
 import ProjectList from "./components/ProjectList";
+import "./App.css";
 
 const App = () => {
   return (
