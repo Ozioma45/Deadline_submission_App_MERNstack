@@ -9,9 +9,7 @@ const ProjectList = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const res = await axios.get(
-        "https://deadline-submission-app-backend.onrender.com/api/projects"
-      );
+      const res = await axios.get("http://localhost:5000/api/projects");
       setProjects(res.data);
     };
     fetchProjects();

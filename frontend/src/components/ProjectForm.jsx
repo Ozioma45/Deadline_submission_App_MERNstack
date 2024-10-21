@@ -18,7 +18,7 @@ const ProjectForm = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://deadline-submission-app-backend.onrender.com/api/submit",
+        "http://localhost:5000/api/submit",
         formData
       );
       alert(res.data.message);
