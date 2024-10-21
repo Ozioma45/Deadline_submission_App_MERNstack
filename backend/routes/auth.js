@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Registration route
+// Registration route
 router.post("/register", upload.single("profilePicture"), async (req, res) => {
   const {
     name,
@@ -28,6 +29,18 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
     linkedin,
     twitter,
   } = req.body;
+
+  // Check for missing required fields
+  if (!name || !email || !password) {
+    const missingFields = [];
+    if (!name) missingFields.push("name");
+    if (!email) missingFields.push("email");
+    if (!password) missingFields.push("password");
+
+    return res.status(400).json({
+      msg: `Please fill in all required fields: ${missingFields.join(", ")}`,
+    });
+  }
 
   try {
     // Check if user already exists
@@ -59,10 +72,12 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(201).json({ token, userId: user._id });
+    res
+      .status(201)
+      .json({ token, userId: user._id, msg: "Registration successful" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    res.status(500).json({ msg: "Server error" }); // Send a clear server error message
   }
 });
 
@@ -71,6 +86,13 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Check for missing fields
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ msg: "Please fill in all required fields" });
+    }
+
     // Check if user exists
     const user = await User.findOne({ email });
     if (!user) {
@@ -88,10 +110,12 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.json({ token, userId: user._id });
+    return res.json({ token, userId: user._id, msg: "Login successful" });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server error");
+    return res
+      .status(500)
+      .json({ msg: "Server error, please try again later" });
   }
 });
 
