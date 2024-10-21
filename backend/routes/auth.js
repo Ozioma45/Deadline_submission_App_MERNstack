@@ -66,4 +66,33 @@ router.post("/register", upload.single("profilePicture"), async (req, res) => {
   }
 });
 
+// Login route
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    // Check password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.json({ token, userId: user._id });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;
