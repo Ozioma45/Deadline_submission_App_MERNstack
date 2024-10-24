@@ -1,5 +1,6 @@
 // src/components/Dashboard.jsx
 import React from "react";
+import Logout from "../components/Logout";
 
 const Dashboard = () => {
   return (
@@ -8,6 +9,7 @@ const Dashboard = () => {
       <p>
         This is a placeholder page for users after logging in or registering.
       </p>
+      <Logout />
     </div>
   );
 };

@@ -16,6 +16,9 @@ const Home = () => {
         <Link to="/login" className="btn btn-primary mx-2">
           Login
         </Link>
+        <Link to="/dashboard" className="btn btn-primary mx-2">
+          Dashboard
+        </Link>
       </div>
       <div className="mt-4">
         <Countdown deadline={submissionDeadline} />
