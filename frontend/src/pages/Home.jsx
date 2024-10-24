@@ -9,6 +9,14 @@ const Home = () => {
     <div className="text-center my-5 text-white">
       <h1 className="display-4">Project Submission Portal</h1>
       <h2>Submission Date: 25th October, 2024</h2>
+      <div>
+        <Link to="/register" className="btn btn-primary mx-2">
+          Register
+        </Link>
+        <Link to="/login" className="btn btn-primary mx-2">
+          Login
+        </Link>
+      </div>
       <div className="mt-4">
         <Countdown deadline={submissionDeadline} />
         <Link to="/submit">

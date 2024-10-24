@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,6 +44,7 @@ const Register = () => {
       );
       setSuccessMsg(res.data.msg); // Show success message
       setErrorMsg(""); // Clear any previous error messages
+      navigate("/dashboard"); // Redirect to the Dashboard after registration
     } catch (err) {
       console.log(err.response); // Log full error response for debugging
 
