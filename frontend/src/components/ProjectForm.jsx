@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const ProjectForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     title: "",
@@ -10,20 +13,37 @@ const ProjectForm = () => {
     githubLink: "",
   });
 
+  const [loading, setLoading] = useState(false); // Track form submission state
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
+
     try {
       const res = await axios.post(
         "http://localhost:5000/api/submit",
         formData
       );
-      alert(res.data.message);
-    } catch (error) {
-      alert("Error submitting project");
+      Swal.fire({
+        title: "Success!",
+        text: res.data.msg,
+        icon: "success",
+      }).then(() => {
+        navigate("/dashboard");
+      });
+    } catch (err) {
+      console.error(err.response?.data || err.message); // Improved error logging
+      Swal.fire({
+        title: "Error!",
+        text: err.response?.data?.msg || "An error occurred!",
+        icon: "error",
+      });
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -93,10 +113,17 @@ const ProjectForm = () => {
             name="description"
             placeholder="Project Description"
             value={formData.description}
-            onChange={handleChange}></textarea>
+            onChange={handleChange}
+            required></textarea>
         </div>
 
-        <button type="submit">Submit Project</button>
+        <button
+          type="submit"
+          className="btn btn-primary w-100"
+          disabled={loading} // Disable button during loading
+        >
+          {loading ? "Submitting..." : "Submit Project"}
+        </button>
       </form>
     </div>
   );

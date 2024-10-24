@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,9 +23,20 @@ const Login = () => {
         formData
       );
       localStorage.setItem("token", res.data.token);
-      navigate("/dashboard"); // Redirect to the Dashboard after login
+      Swal.fire({
+        title: "Success!",
+        text: res.data.msg,
+        icon: "success",
+      }).then(() => {
+        navigate("/dashboard");
+      });
     } catch (err) {
-      console.error(err.response.data);
+      Swal.fire({
+        title: "Error!",
+        text: err.response?.data?.msg || "An error occurred!",
+        icon: "error",
+      });
+      console.error(err.response?.data || err.message);
     }
   };
 

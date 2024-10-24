@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -16,9 +17,6 @@ const Register = () => {
     profilePicture: null,
   });
 
-  const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -30,9 +28,11 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataObj = new FormData();
-    Object.keys(formData).forEach((key) =>
-      formDataObj.append(key, formData[key])
-    );
+
+    // Append each field to the FormData object
+    Object.keys(formData).forEach((key) => {
+      formDataObj.append(key, formData[key]);
+    });
 
     try {
       const res = await axios.post(
@@ -42,45 +42,45 @@ const Register = () => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      setSuccessMsg(res.data.msg); // Show success message
-      setErrorMsg(""); // Clear any previous error messages
-      navigate("/dashboard"); // Redirect to the Dashboard after registration
+      Swal.fire({
+        title: "Success!",
+        text: res.data.msg,
+        icon: "success",
+      }).then(() => {
+        navigate("/dashboard");
+      });
     } catch (err) {
-      console.log(err.response); // Log full error response for debugging
-
-      // Ensure error message is properly captured
-      if (err.response && err.response.data && err.response.data.msg) {
-        setErrorMsg(err.response.data.msg);
-      } else {
-        setErrorMsg("Something went wrong");
-      }
-
-      setSuccessMsg(""); // Clear any success messages
+      console.error(err.response?.data || err.message); // Detailed logging
+      Swal.fire({
+        title: "Error!",
+        text: err.response?.data?.msg || "An error occurred!",
+        icon: "error",
+      });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {errorMsg && <div className="alert alert-danger">{errorMsg}</div>}
-      {successMsg && <div className="alert alert-success">{successMsg}</div>}
-
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <input
         type="text"
         name="name"
         placeholder="Name"
         onChange={handleChange}
+        required
       />
       <input
         type="email"
         name="email"
         placeholder="Email"
         onChange={handleChange}
+        required
       />
       <input
         type="password"
         name="password"
         placeholder="Password"
         onChange={handleChange}
+        required
       />
       <input
         type="url"
