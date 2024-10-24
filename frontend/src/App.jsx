@@ -22,15 +22,13 @@ const App = () => {
           {/* Protecting the submit route */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />{" "}
-          {/* Dashboard route */}
-          <Route path="/submit" element={<ProjectForm />} />
-          <Route path="/projects" element={<ProjectList />} />
           <Route
             path="/dashboard"
             element={<ProtectedRoute element={<Dashboard />} />}
           />{" "}
           {/* Protecting the dashboard route */}
+          <Route path="/submit" element={<ProjectForm />} />
+          <Route path="/projects" element={<ProjectList />} />
         </Routes>
       </div>
     </Router>

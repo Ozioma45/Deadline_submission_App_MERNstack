@@ -10,7 +10,7 @@ const ProtectedRoute = ({ element }) => {
     if (!token) {
       Swal.fire({
         title: "Access Denied!",
-        text: "You need to log in to submit a project.",
+        text: "You need to log in gain Access",
         icon: "warning",
         confirmButtonText: "Go to Login",
       }).then((result) => {
