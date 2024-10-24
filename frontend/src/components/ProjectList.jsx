@@ -9,7 +9,9 @@ const ProjectList = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const res = await axios.get("http://localhost:5000/api/projects");
+      const res = await axios.get(
+        "https://deadline-submission-app-mernstack.onrender.com/api/projects"
+      );
       setProjects(res.data);
     };
     fetchProjects();

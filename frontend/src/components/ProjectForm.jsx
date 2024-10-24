@@ -25,7 +25,7 @@ const ProjectForm = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/submit",
+        "https://deadline-submission-app-mernstack.onrender.com/api/submit",
         formData
       );
       Swal.fire({

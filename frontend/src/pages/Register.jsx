@@ -36,7 +36,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        "https://deadline-submission-app-mernstack.onrender.com/api/auth/register",
         formDataObj,
         {
           headers: { "Content-Type": "multipart/form-data" },
